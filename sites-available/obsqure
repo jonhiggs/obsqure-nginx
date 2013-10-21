@@ -16,8 +16,8 @@ upstream app_server {
 server {
   listen [::]:443 ssl;
   ssl on;
-  ssl_certificate     cert/www.obsqure.net.pem;
-  ssl_certificate_key cert/www.obsqure.net.key;
+  ssl_certificate     certs/www.obsqure.net.pem;
+  ssl_certificate_key certs/www.obsqure.net.key;
 
   # If you have IPv6, you'll likely want to have two separate listeners.
   # One on IPv4 only (the default), and another on IPv6 only instead
