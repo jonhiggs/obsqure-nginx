@@ -1,6 +1,8 @@
 server {
   listen       80  default_server;
   server_name  _;
+  access_log /var/log/nginx/munin-access.log combined;
+  error_log /var/log/nginx/munin-error.log;
 
   rewrite ^ https://www.obsqure.net$request_uri permanent;
 }

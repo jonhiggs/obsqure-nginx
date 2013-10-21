@@ -2,7 +2,7 @@ server {
   client_max_body_size 4G;
   server_name munin.obsqure.net;
   access_log /var/log/nginx/munin-access.log combined;
-  error_log /var/log/nginx/munin-error.log;
+  error_log  /var/log/nginx/munin-error.log;
 
   keepalive_timeout 5;
 
@@ -12,6 +12,6 @@ server {
 
   location /nginx_status {
     stub_status on;
-    access_log   off;
+    access_log  off;
   }
 }
