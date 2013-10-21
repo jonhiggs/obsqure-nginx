@@ -1,4 +1,6 @@
 server {
-  listen 80 
+  listen       80  default_server;
+  server_name  _;
+
   rewrite ^ https://www.obsqure.net$request_uri permanent;
 }
