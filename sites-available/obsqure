@@ -57,7 +57,7 @@ server {
   }
 
   # show the maintenance page if we are in maintenance mode.
-  if (-f $document_root/../tmp/maintenance.txt) {
+  if (-f /srv/www/obsqure/shared/system/maintenance.txt) {
     return 503;
   }
 
