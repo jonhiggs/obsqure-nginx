@@ -61,7 +61,7 @@ server {
   error_page 503 @maintenance;
 
   location @maintenance {
-    root /srv/www/obsqure/current/public/assets/;
+    root /srv/www/obsqure/current/public/;
     if (!-f $request_file) {
       rewrite ^(.*)$ /503.html break;
     fi
