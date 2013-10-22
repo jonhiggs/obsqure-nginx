@@ -36,13 +36,6 @@ server {
     add_header Cache-Control public;
   }
 
-  # show the maintenance page if we are in maintenance mode.
-  if (-f /srv/www/obsqure/current/tmp/maintenance.txt) {
-    if (!-f $request_file) {
-      return 503;
-    fi
-  }
-
   # clean up trailing slashes
   rewrite ^(.+)/$ https://www.obsqure.net$1 permanent;
 
@@ -58,6 +51,16 @@ server {
     proxy_pass http://app_server;
   }
 
+  # break out if we can serve a static file.
+  if (-f $request_filename) {
+    break;
+  }
+
+  # show the maintenance page if we are in maintenance mode.
+  if (-f $document_root/../tmp/maintenance.txt) {
+    return 503;
+  }
+
   # Rails error pages
   error_page 500 502 504 /500.html;
   error_page 503 @maintenance;
@@ -65,4 +68,6 @@ server {
   location @maintenance {
     rewrite ^(.*)$ /503.html break;
   }
+}
+
 }
