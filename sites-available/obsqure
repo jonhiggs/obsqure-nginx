@@ -61,8 +61,7 @@ server {
   error_page 503 @maintenance;
 
   location @maintenance {
-    root /srv/www/obsqure/current/public;
-    if (!-f $request_filename) {
+    if (!-f /srv/www/obsqure/current/public$request_uri) {
       rewrite ^(.*)$ /503.html break;
     fi
     return 200
