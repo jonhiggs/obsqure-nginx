@@ -38,7 +38,9 @@ server {
 
   # show the maintenance page if we are in maintenance mode.
   if (-f /srv/www/obsqure/current/tmp/maintenance.txt) {
-    return 503;
+    if (!-f $request_file) {
+      return 503;
+    fi
   }
 
   # clean up trailing slashes
@@ -61,10 +63,6 @@ server {
   error_page 503 @maintenance;
 
   location @maintenance {
-    root /srv/www/obsqure/current/public/;
-    if (!-f $request_file) {
-      rewrite ^(.*)$ /503.html break;
-    fi
-    return 200
+    rewrite ^(.*)$ /503.html break;
   }
 }
