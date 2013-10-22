@@ -37,15 +37,8 @@ server {
   }
 
   # show the maintenance page if we are in maintenance mode.
-  location / {
-    if (-f /srv/www/obsqure/current/tmp/maintenance.txt) {
-      return 503;
-    }
-  }
-
-  error_page 503 @maintenance;
-  location @maintenance {
-    rewrite ^(.*)$ /503.html break;
+  if (-f /srv/www/obsqure/current/tmp/maintenance.txt) {
+    return 503;
   }
 
   # clean up trailing slashes
@@ -64,8 +57,12 @@ server {
   }
 
   # Rails error pages
+  error_page 503 /503.html;
   error_page 500 502 503 504 /500.html;
   location = /500.html {
+    root /srv/www/obsqure/current/public;
+  }
+  location = /503.html {
     root /srv/www/obsqure/current/public;
   }
 }
